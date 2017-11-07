@@ -12,8 +12,8 @@
     </database>
     <schema id="4" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-11-02.08:32:01.311</IntrospectionTimestamp>
-      <IntrospectionStateNumber>1194</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-11-06.13:08:41.854</IntrospectionTimestamp>
+      <IntrospectionStateNumber>1232</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -46,7 +46,7 @@
     </table>
     <table id="13" parent="4" name="reply">
       <ObjectId>16471</ObjectId>
-      <StateNumber>1193</StateNumber>
+      <StateNumber>1232</StateNumber>
     </table>
     <column id="14" parent="10" name="title">
       <Position>1</Position>
@@ -175,12 +175,23 @@
       <DataType>varchar(20)|0</DataType>
       <StateNumber>1193</StateNumber>
     </column>
-    <index id="38" parent="13" name="reply_pkey">
+    <column id="38" parent="13" name="secretreply">
+      <Position>5</Position>
+      <DataType>varchar(2)|0</DataType>
+      <StateNumber>1230</StateNumber>
+      <DefaultExpression>&apos;n&apos;::character varying</DefaultExpression>
+    </column>
+    <column id="39" parent="13" name="replyer">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+      <StateNumber>1232</StateNumber>
+    </column>
+    <index id="40" parent="13" name="reply_pkey">
       <ObjectId>16474</ObjectId>
       <ColNames>rno</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="39" parent="13" name="reply_pkey">
+    <key id="41" parent="13" name="reply_pkey">
       <ObjectId>16475</ObjectId>
       <ColNames>rno</ColNames>
       <UnderlyingIndexName>reply_pkey</UnderlyingIndexName>

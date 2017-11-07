@@ -73,12 +73,13 @@ public class BoardController {
         boardService.increaseViews(tmpPost.getBoardnumber());
         ModelAndView modelAndView=new ModelAndView();
         httpSession.setAttribute("post",tmpPost);
-        httpSession.setAttribute("count", replyService.count(boardnumber));
+        httpSession.setAttribute("boardnumber",tmpPost.getBoardnumber());
+        httpSession.setAttribute("count", tmpPost.getRecnt());
         //httpSession.setAttribute("dto", boardService.get(boardnumber));
         httpSession.setAttribute("curPage", curPage);
         httpSession.setAttribute("searchOption", searchOption);
         httpSession.setAttribute("keyword", keyword);
-
+        httpSession.setAttribute("boardUserId",tmpPost.getUserId());
         // 뷰의 이름
         modelAndView.setViewName("board/read");
 

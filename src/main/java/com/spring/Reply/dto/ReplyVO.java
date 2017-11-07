@@ -1,10 +1,46 @@
 package com.spring.Reply.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="reply")
 public class ReplyVO {
-    private String  rno;        // 댓글 번호
-    private String boardnumber;   // 게시글 번호
-    private String replytext;    // 댓글 내용
-    private String userid;        // 댓글 작성자
+
+    @Id
+    @Column(name="rno")
+    private String  rno;
+
+    @Column(name="boardnumber")
+    private String boardnumber;
+
+    @Override
+    public String toString() {
+        return "ReplyVO{" +
+                "rno='" + rno + '\'' +
+                ", boardnumber='" + boardnumber + '\'' +
+                ", replytext='" + replytext + '\'' +
+                ", userid='" + userid + '\'' +
+                ", secretreply='" + secretreply + '\'' +
+                ", replyer='" + replyer + '\'' +
+                '}';
+    }
+
+    @Column(name="replytext")
+    private String replytext;
+
+    @Column(name="userid")
+    private String userid;
+
+    @Column(name="secretreply")
+    private String secretreply;
+
+    @Column(name="replyer")
+    private String replyer;
+
 
     public String getRno() {
         return rno;
@@ -14,11 +50,11 @@ public class ReplyVO {
         this.rno = rno;
     }
 
-    public String getBno() {
+    public String getBoardnumber() {
         return boardnumber;
     }
 
-    public void setBno(String boardnumber) {
+    public void setBoardnumber(String boardnumber) {
         this.boardnumber = boardnumber;
     }
 
@@ -37,5 +73,30 @@ public class ReplyVO {
     public void setUserId(String userid) {
         this.userid = userid;
     }
+
+    public String getSecretreply() {
+        return secretreply;
+    }
+
+    public void setSecretreply(String secretreply) {
+        this.secretreply = secretreply;
+    }
+
+    public String getReplyer() {
+        return replyer;
+    }
+
+    public void setReplyer(String replyer) {
+        this.replyer = replyer;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
 
 }

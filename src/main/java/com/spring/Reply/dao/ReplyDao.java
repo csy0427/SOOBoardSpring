@@ -1,7 +1,9 @@
 package com.spring.Reply.dao;
 
+import com.spring.Reply.dto.ReplyPager;
 import com.spring.Reply.dto.ReplyVO;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface ReplyDao {
@@ -15,4 +17,8 @@ public interface ReplyDao {
     void delete(String rno);
 
     int count(String boardnumber);
+
+    List<ReplyVO> listAll(ReplyPager replyPager,String boardnumber);
+
+    ReplyVO detail(String rno);
 }

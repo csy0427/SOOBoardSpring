@@ -11,6 +11,7 @@
     <title>게시글 수정</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <h2>게시글 작성</h2>
 <form name="form1" method="post" action="${path}/board/update.do">
     <div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class ReplyServiceImpl implements ReplyService {
 
     public void create(ReplyVO vo) {
         vo.setRno(getReplyNumber());
-        System.out.println(vo.toString()+" ##########");
         replyDao.create(vo);
     }
 
@@ -53,10 +53,11 @@ public class ReplyServiceImpl implements ReplyService {
         List<ReplyVO> items= replyDao.listAll(replyPager,boardnumber);
         String userId= (String) session.getAttribute("userId");
         for(ReplyVO vo: items){
+            System.out.println(vo.getBoardnumber()+"_______________________________________________");
             if(vo.getSecretreply().equals("y")){
-                if(userId==null){
-                 vo.setReplytext("비밀 댓글입니다.");
-                }
+                    if(userId==null){
+                        vo.setReplytext("비밀 댓글입니다.");
+                    }
                 else{
                     String replyer=vo.getReplyer();
                     String writer=vo.getUserId();

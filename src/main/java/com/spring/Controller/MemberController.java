@@ -36,7 +36,7 @@ public class MemberController {
         System.out.println("signup.do");
         vo.setUserId(userid);
         memberService.insertMember(vo);
-        return "login/login.do";
+        return "member/login";
     }
 
     @ResponseBody

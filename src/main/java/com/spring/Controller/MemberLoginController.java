@@ -49,7 +49,7 @@ public class MemberLoginController {
         memberLoginService.logout(session);
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("msg","logout");
-        return "login";
+        return "member/login";
     }
 
 }

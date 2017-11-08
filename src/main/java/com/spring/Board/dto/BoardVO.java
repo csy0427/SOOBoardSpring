@@ -89,4 +89,7 @@ public class BoardVO {
     public String toString(){
         return "Board [boardnumber=" + getBoardnumber() + ", title=" + getTitle() +", content="+getContent() + ", id= "+ getUserId()+"]";
     }
+    public boolean isSame(BoardVO vo){
+        return vo.getBoardnumber()==this.getBoardnumber();
+    }
 }

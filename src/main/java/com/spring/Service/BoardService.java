@@ -4,6 +4,7 @@ import com.spring.Board.dto.BoardPager;
 import com.spring.Board.dto.BoardVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
 
@@ -14,6 +15,6 @@ public interface BoardService {
     void add(BoardVO board);
     void increaseViews(String boardNumber);
     int countArticle(String searchOption, String keyword);
-    List<BoardVO> listAll(BoardPager boardPager, String searchOption, String keyword);
+    Map<String, Object> listAll(BoardPager boardPager, String searchOption, String keyword);
     int countReply(String boardnumber);
 }

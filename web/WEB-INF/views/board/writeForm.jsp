@@ -49,6 +49,7 @@
 </head>
 -->
 <body>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <h2>게시글 작성</h2>
 <form name="add" method="post" action="/board/add.do">
     <div>

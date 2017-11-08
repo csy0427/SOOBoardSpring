@@ -22,6 +22,7 @@ public class ReplyDaoImpl implements ReplyDao{
     }
 
     public void create(ReplyVO vo) {
+        sqlSession.update("reply.increaseBoardRecnt",vo.getBoardnumber());
         sqlSession.insert("reply.insertReply",vo);
     }
 
@@ -39,11 +40,12 @@ public class ReplyDaoImpl implements ReplyDao{
     }
 
     public List<ReplyVO> listAll(ReplyPager replyPager, String boardnumber) {
+        //List<ReplyVO> replies =sqlSession.selectList("reply.list", boardnumber);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("start", replyPager.getPageBegin());
         map.put("PAGE_SCALE", replyPager.getPageScale());
+        map.put("boardnumber",boardnumber);
         return sqlSession.selectList("reply.listAll", map);
-        //return sqlSession.selectList("reply.listAll",boardnumber);
     }
 
     public ReplyVO detail(String rno) {

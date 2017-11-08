@@ -13,8 +13,6 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <script type="text/javascript" src="./js/common.js"></script>
     <title>Insert title here</title>
-    <%@ include file="include/header.jsp"%>
-    <%@ include file="include/header.jsp"%>
     <style>
         .fileDrop{
             width:600px;
@@ -30,7 +28,6 @@
     </style>
 </head>
 <body>
-<%@ include file="include/menu.jsp"%>
 <h2>AJAX File Upload</h2>
 <div class="fileDrop"></div>
 <div class="uploadedList"></div>

@@ -144,11 +144,9 @@ body {
 header.masthead {
   position: relative;
   width: 100%;
-  min-height: auto;
   text-align: center;
   color: white;
-  background-image: url("../img/header.jpg");
-  background-position: center;
+  background: url("../img/header.jpg") center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

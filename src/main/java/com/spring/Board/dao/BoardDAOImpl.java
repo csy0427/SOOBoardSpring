@@ -22,7 +22,7 @@ public class BoardDAOImpl implements BoardDAO {
         return tmpList;
     }
 
-    public List<BoardVO> listAll(BoardPager boardPager, String searchOption, String keyword) {
+    public Map<String, Object> listAll(BoardPager boardPager, String searchOption, String keyword) {
         // 검색옵션, 키워드 맵에 저장
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("searchOption", searchOption);
@@ -30,7 +30,16 @@ public class BoardDAOImpl implements BoardDAO {
         // BETWEEN #{start}, #{end}에 입력될 값을 맵에
         map.put("start", boardPager.getPageBegin());
         map.put("PAGE_SCALE", boardPager.getPageScale());
-        return sqlSession.selectList("board.listAll", map);
+        System.out.println(searchOption + keyword);
+        List<BoardVO> tmpList=sqlSession.selectList("board.listAlls", map);
+        Map<String,Object> tmpMap=new HashMap<String, Object>();
+        if(tmpList!=null){
+            for(BoardVO vo:tmpList){
+                System.out.println(vo.toString());
+                tmpMap.put(vo.getBoardnumber(),vo);
+            }
+        }
+        return tmpMap;
     }
 
     public int countArticle(String searchOption, String keyword) {

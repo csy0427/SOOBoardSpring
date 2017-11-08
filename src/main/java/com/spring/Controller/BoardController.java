@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,18 +47,19 @@ public class BoardController {
         int count = boardService.countArticle(searchOption, keyword);
 
         BoardPager boardPager = new BoardPager(count, curPage);
-        //int start = boardPager.getPageBegin();
-        //int end = boardPager.getPageEnd();
-        List<BoardVO> list = boardService.listAll(boardPager, searchOption, keyword);
-        System.out.println(list.get(0).getTitle()+"++++++++++++++++++++");
-        // 데이터를 맵에 저장
+        Map<String, Object> tmpMap = boardService.listAll(boardPager, searchOption, keyword);
+        List<BoardVO> list=new ArrayList<BoardVO>();
         Map<String, Object> map = new HashMap<String, Object>();
+        for(String key : tmpMap.keySet()){
+            list.add((BoardVO) tmpMap.get(key));
+        }
+
         map.put("list", list);
-        map.put("count", count); // 레코드의 갯수
-        map.put("searchOption", searchOption); // 검색옵션
+        map.put("count", count);
+        map.put("searchOption", searchOption);
         map.put("keyword", keyword);
         map.put("boardPager", boardPager);
-
+        System.out.println("list controller called**********");
         ModelAndView mav = new ModelAndView();
         mav.addObject("map", map);
         httpSession.setAttribute("map",map);
@@ -69,18 +71,17 @@ public class BoardController {
     @RequestMapping(value = "read.do",method = RequestMethod.GET)
     public ModelAndView get(@RequestParam String boardnumber, @RequestParam int curPage, @RequestParam String searchOption,
                             @RequestParam String keyword, HttpSession httpSession){
+        System.out.println("get method called__________________________________");
         BoardVO tmpPost=boardService.get(boardnumber);
         boardService.increaseViews(tmpPost.getBoardnumber());
         ModelAndView modelAndView=new ModelAndView();
         httpSession.setAttribute("post",tmpPost);
         httpSession.setAttribute("boardnumber",tmpPost.getBoardnumber());
         httpSession.setAttribute("count", tmpPost.getRecnt());
-        //httpSession.setAttribute("dto", boardService.get(boardnumber));
         httpSession.setAttribute("curPage", curPage);
         httpSession.setAttribute("searchOption", searchOption);
         httpSession.setAttribute("keyword", keyword);
         httpSession.setAttribute("boardUserId",tmpPost.getUserId());
-        // 뷰의 이름
         modelAndView.setViewName("board/read");
 
         return modelAndView;
@@ -93,7 +94,6 @@ public class BoardController {
 
     @RequestMapping(value = "update.do",method = RequestMethod.POST)
     public String update(@ModelAttribute BoardVO board, HttpSession session) throws Exception{
-        System.out.println("update method called**********");
         board.setId((String) session.getAttribute("id"));
         System.out.println(board.toString());
         boardService.update(board);

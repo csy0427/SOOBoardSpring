@@ -4,6 +4,7 @@ import com.spring.Board.dto.BoardPager;
 import com.spring.Board.dto.BoardVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardDAO {
 
@@ -21,7 +22,7 @@ public interface BoardDAO {
 
     public int numberOfPost();
 
-    public List<BoardVO> listAll(BoardPager boardPager, String searchOption, String keyword);
+    public Map<String, Object> listAll(BoardPager boardPager, String searchOption, String keyword);
 
     int countArticle(String searchOption, String keyword);
 

@@ -17,11 +17,11 @@
         VALUES (#{rno}, #{boardnumber}, #{replytext}, #{userid}, #{secretreply}, #{replyer})
     </select>
 
-    <select id="increaseBoardRecnt" parameterType="String">
+    <update id="increaseBoardRecnt" parameterType="String">
         UPDATE board
-        SET rent = recnt + 1
+        SET recnt = recnt + 1
         WHERE boardnumber = #{boardnumber}
-    </select>
+    </update>
 
     <delete id="deleteReply" parameterType="String">
         DELETE FROM reply WHERE rno= #{rno}
@@ -44,8 +44,26 @@
         WHERE rno = #{rno}
     </select>
 
+    <select id="list" parameterType="String" resultType="com.spring.Reply.dto.ReplyVO">
+        SELECT *
+        FROM reply
+        WHERE boardnumber = #{boardnumber}
+    </select>
+
+    <sql id="joinBoardReply">
+        SELECT r.rno,r.boardnumber,r.replytext,r.replyer,r.secretreply,r.userid
+        FROM board b, reply r
+        WHERE b.boardnumber=r.boardnumber
+    </sql>
+
     <select id="listAll" parameterType="hashmap" resultType="com.spring.Reply.dto.ReplyVO">
-        SELECT * FROM reply LIMIT #{PAGE_SCALE} OFFSET #{start}-1
+        SELECT *
+        FROM (
+        SELECT r.rno,r.boardnumber,r.replytext,r.replyer,r.secretreply,r.userid
+        FROM board b, reply r
+        WHERE b.boardnumber=r.boardnumber AND b.boardnumber=#{boardnumber}
+        ) A
+        LIMIT #{PAGE_SCALE} OFFSET #{start}-1
     </select>
 
 

@@ -41,7 +41,6 @@
                 select COUNT(*) from board
         </select>
 
-
         <select id="listAll" parameterType="hashmap" resultType="com.spring.Board.dto.BoardVO">
           SELECT * FROM board LIMIT #{PAGE_SCALE} OFFSET #{start}-1
         </select>
@@ -53,22 +52,6 @@
           <include refid="search"></include>
         </select>
 
-     <sql id="search">
-        <choose>
-            <when test="searchOption == 'all'">
-                WHERE b.userid = m.userid
-                AND
-                (userid like '%'||#{keyword}||'%'
-                OR content like '%'||#{keyword}||'%'
-                OR title like '%'||#{keyword}||'%')
-            </when>
-            <otherwise>
-                WHERE b.userid = m.userid
-                AND ${searchOption} like '%'||#{keyword}||'%'
-            </otherwise>
-        </choose>
-      </sql>
-
 
     <select id="countReply" parameterType="String" resultType="int">
         SELECT recnt
@@ -76,7 +59,34 @@
         WHERE boardnumber = #{boardnumber}
     </select>
 
+    <select id="listAlls" parameterType="hashmap" resultType="com.spring.Board.dto.BoardVO">
+        SELECT *
+        FROM
+        (
+          SELECT b.title,b.content,b.boardnumber,b.views,b.show,b.recnt,b.userid
+          FROM board b, board_member m
+          <include refid="search"></include>
+        )A
+        LIMIT #{PAGE_SCALE} OFFSET #{start}-1
+    </select>
 
+    <sql id="search">
+      <choose>
+        <when test="searchOption == 'all'">
+            WHERE
+            b.userid= m.userid
+            AND
+            (b.userid like '%'||#{keyword}||'%'
+            OR content like '%'||#{keyword}||'%'
+            OR title like '%'||#{keyword}||'%')
+        </when>
+        <otherwise>
+            WHERE
+            b.userid = m.userid
+            AND b.${searchOption} like '%'||#{keyword}||'%'
+        </otherwise>
+     </choose>
+  </sql>
     <!-- 게시글 전체 목록 조회 및 검색조회까지
     <select id="listAll" resultType="com.spring.Board.dto.BoardVO">
 

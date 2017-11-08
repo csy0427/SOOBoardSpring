@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ public class BoardServiceImpl implements  BoardService{
         return boardDAO.list();
     }
 
-    public List<BoardVO> listAll(BoardPager boardPager, String searchOption, String keyword){
+    public Map<String, Object> listAll(BoardPager boardPager, String searchOption, String keyword){
         return boardDAO.listAll(boardPager, searchOption, keyword);
     }
 

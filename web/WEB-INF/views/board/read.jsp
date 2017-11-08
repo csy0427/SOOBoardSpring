@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<%String id= (String) session.getAttribute("id");
+<%  String id= (String) session.getAttribute("id");
     String boardUserId= (String)session.getAttribute("boardUserId");
 %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -8,6 +8,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./js/jquery-1.8.3.min.js">
+    <link rel="stylesheet" href="./css/creative.min.css">
+    <link rel="stylesheet" href="./css/creative.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>게시글 작성</title>
@@ -75,7 +82,6 @@
                     "Content-Type" : "application/json"
                 },
                 dateType: "text",
-                // param형식보다 간편
                 data: JSON.stringify({
                     boardnumber : boardnumber,
                     replytext : replytext,
@@ -101,7 +107,6 @@
             });
         }
 
-
         function listReplyRest(num){
             console.log("listReplyRest");
             $.ajax({
@@ -117,7 +122,7 @@
         function showReplyModify(rno){
             $.ajax({
                 type: "get",
-                url: "${path}/reply/detail/"+rno,
+                url: "/reply/detail/"+rno,
                 success: function(result){
                     $("#modifyReply").html(result);
                     // 태그.css("속성", "값")
@@ -131,7 +136,7 @@
         #modifyReply {
             width: 600px;
             height: 130px;
-            background-color: gray;
+            background-color: greenyellow;
             padding: 10px;
             z-index: 10;
             visibility: hidden;
@@ -142,10 +147,15 @@
             border: 1px solid gray;
             background-color: gray;
         }
+
     </style>
 </head>
+<header role="banner">
+<body>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <h2>게시글 보기</h2>
-<form name="form1" method="post">
+<div id="header">
+<form name="form1" method="post" >
     <c:choose>
     <c:when test="${post.show == 'y'}">
     <div>
@@ -174,7 +184,7 @@
         <button type="button" id="btnList">목록</button>
     </div>
 </form>
-
+</div>
 <div style="width:650px; color: green; text-align: center;">
     <br>
     <br>
@@ -194,4 +204,6 @@
 </c:otherwise>
 </c:choose>
 <div id="listReply"></div>
+</body>
+</header>
 </html>
